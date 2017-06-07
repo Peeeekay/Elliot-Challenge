@@ -1,5 +1,6 @@
 
 from datetime import datetime
+from operator import itemgetter
 
 #storing the daya in hash
 #day_hash = {"date":[(startTime,endtime),(startTime,endTime)....],"next_day": ...}
@@ -59,11 +60,17 @@ def get_free_slot(time_array):
     max_index = temp.index(max_diff)
     return (temp_time[max_index],temp_time[max_index] + max_diff,max_diff)
 
+def sort_arrays():
+    for key in day_hash.keys():
+        arr = day_hash[key]
+        day_hash[key] = sorted(arr,key=itemgetter(1))
+
 #runs the program
 def main():
     today_date = datetime.now().date
     week_date = today_date + 7
     extract_data(week_date)
+    sort_arrays()
     # creates the array of array while making the union of all the busy times.
     # the difference between the disjointed sets is the available free slot
     for key in day_hash.keys:
